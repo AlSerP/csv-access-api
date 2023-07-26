@@ -8,7 +8,7 @@ class DatasetListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
-        fields = ("id", "columns")
+        fields = ("id", "rows", "file")
 
 
 class DatasetSerializer(serializers.ModelSerializer):
@@ -25,16 +25,10 @@ class DatasetSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         dataset = Dataset.objects.create(**validated_data)  # saving dataset object
         dataset.update_columns()
+        dataset.update_rows()
         return dataset
-
-    # def get_fields(self, *args, **kwargs):
-    #     fields = super().get_fields(*args, **kwargs)
-    #     columns = fields["columns"]
-    #     print(fields)
-    #     fields["columns"] = columns.split(",")
-    #     return fields
 
     class Meta:
         model = Dataset
-        fields = ("file", "columns")
-        read_only_fields = ["columns"]
+        fields = ("file", "rows", "columns")
+        read_only_fields = ["rows", "columns"]
