@@ -45,7 +45,13 @@ class DatasetViewSet(viewsets.ModelViewSet):
         if pk:
             dataset = Dataset.objects.get(pk=pk)
             if dataset:
-                data = dataset.get_data()
+                print(request.query_params)
+                sort_params = request.query_params.dict()
+                order_param = request.query_params.get("order_by")
+                if order_param:
+                    del sort_params["order_by"]
+
+                data = dataset.get_data(order_by=order_param, sort_by=sort_params)
                 pagination = StandardResultsSetPagination()
                 page = pagination.paginate_queryset(data, request)
                 return pagination.get_paginated_response(page)
