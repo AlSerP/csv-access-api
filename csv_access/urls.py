@@ -7,7 +7,8 @@ router = routers.SimpleRouter()
 
 router.register(r"datasets", views.DatasetViewSet, basename="datasets")
 
+# print(router.urls)
+
 urlpatterns = [
     path("", include(router.urls)),
-    # path("datasets/create", views.DatasetCreateView.as_view()),
 ]

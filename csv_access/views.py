@@ -34,7 +34,7 @@ class DatasetViewSet(viewsets.ModelViewSet):
         serializer = DatasetListSerializer(page, many=True)
         return pagination.get_paginated_response(serializer.data)
 
-    @action(methods=["post"], detail=False, url_path="create", url_name="create-dataset")
+    @action(methods=["post"], detail=False, url_path="create", url_name="create")
     def new(self, request):
         """Upload new Dataset"""
         return self.create(request)

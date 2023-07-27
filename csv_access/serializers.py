@@ -24,8 +24,7 @@ class DatasetSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         dataset = Dataset.objects.create(**validated_data)  # saving dataset object
-        dataset.update_columns()
-        dataset.update_rows()
+        dataset.update()
         return dataset
 
     class Meta:
